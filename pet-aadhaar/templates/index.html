@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{{ app_name }} — Pet ID for every collar{% endblock %}
+{% block main_class %}landing-main{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="brand-hero">{{ app_name }}</p>
+    <h1>A digital Aadhaar for your pet — print, stick, done.</h1>
+    <p class="lede">Register your furry friend, keep vaccination files safe, and generate a QR collar tag so anyone who finds them can reach you.</p>
+    <div class="hero-actions">
+      {% if user %}
+        <a class="btn btn-primary btn-lg" href="/dashboard">Open my pets</a>
+        <a class="btn btn-soft btn-lg" href="/pets/new">Add another pet</a>
+      {% else %}
+        <a class="btn btn-primary btn-lg" href="/register">Create free account</a>
+        <a class="btn btn-soft btn-lg" href="/login">I already have one</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="collar-card float-a">
+      <div class="collar-ring"></div>
+      <div class="tag-face">
+        <strong>Bruno</strong>
+        <span>PAW-A1B2C3D4</span>
+        <div class="mini-qr"></div>
+      </div>
+    </div>
+    <div class="paw-blob float-b"></div>
+    <div class="treat-chip float-c">Vaccination ✓</div>
+  </div>
+</section>
+
+<section class="how">
+  <h2>How it works</h2>
+  <p class="section-lede">Three soft steps from sofa to collar tag.</p>
+  <ol class="steps">
+    <li>
+      <span class="step-num">1</span>
+      <h3>Sign up once</h3>
+      <p>Save your owner details so rescuers know who to call.</p>
+    </li>
+    <li>
+      <span class="step-num">2</span>
+      <h3>Add every pet</h3>
+      <p>Name, age, breed, and vaccination certificates — all in one place.</p>
+    </li>
+    <li>
+      <span class="step-num">3</span>
+      <h3>Print the QR tag</h3>
+      <p>Stick it on the collar. Anyone can scan and see how to help.</p>
+    </li>
+  </ol>
+</section>
+{% endblock %}

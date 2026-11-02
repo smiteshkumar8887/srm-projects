@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Log in — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="auth-shell">
+  <div class="auth-card">
+    <h1>Welcome back, pet parent</h1>
+    <p class="muted">Log in to see your pets and collar tags.</p>
+    {% if error %}
+      <div class="alert alert-error" role="alert">{{ error }}</div>
+    {% endif %}
+    <form method="post" action="/login" class="stack-form">
+      <label>
+        Email
+        <input type="email" name="email" required value="{{ email or '' }}" autocomplete="email" />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required autocomplete="current-password" />
+      </label>
+      <button class="btn btn-primary btn-block" type="submit">Log in</button>
+    </form>
+    <p class="switch-auth">New here? <a href="/register">Create an account</a></p>
+  </div>
+</section>
+{% endblock %}

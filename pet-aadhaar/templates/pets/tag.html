@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Collar tag — {{ pet.name }}{% endblock %}
+{% block head %}
+<style>
+  @media print {
+    .site-header, .site-footer, .no-print, .bg-wash { display: none !important; }
+    body { background: #fff !important; }
+    .print-sheet { box-shadow: none !important; margin: 0 !important; }
+  }
+</style>
+{% endblock %}
+{% block content %}
+<section class="tag-page">
+  <div class="no-print tag-toolbar">
+    <a href="/dashboard" class="btn btn-ghost">← Back</a>
+    <button class="btn btn-primary" onclick="window.print()">Print collar tag</button>
+  </div>
+
+  <article class="print-sheet">
+    <header class="tag-brand">{{ app_name }}</header>
+    <div class="tag-body">
+      <div class="tag-info">
+        <h1>{{ pet.name }}</h1>
+        <p class="tag-id">{{ pet.aadhaar_id }}</p>
+        <ul>
+          <li><strong>Breed:</strong> {{ pet.breed }}</li>
+          <li><strong>Age:</strong> {{ pet.age_years }}y {{ pet.age_months }}m</li>
+          <li><strong>Owner:</strong> {{ owner.full_name }}</li>
+          <li><strong>Phone:</strong> {{ owner.phone }}</li>
+        </ul>
+        <p class="tag-hint">Scan QR if found — please call the owner.</p>
+      </div>
+      <div class="tag-qr">
+        <img src="/media/qr/{{ pet.aadhaar_id }}.png" alt="QR code for {{ pet.name }}" />
+      </div>
+    </div>
+  </article>
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ pet.name }} — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="public-shell">
+  <article class="public-card">
+    <p class="eyebrow">Found this pet?</p>
+    <h1>{{ pet.name }}</h1>
+    <p class="aadhaar">{{ pet.aadhaar_id }}</p>
+    <dl class="facts">
+      <div><dt>Species</dt><dd>{{ pet.species }}</dd></div>
+      <div><dt>Breed</dt><dd>{{ pet.breed }}</dd></div>
+      <div><dt>Age</dt><dd>{{ pet.age_years }}y {{ pet.age_months }}m</dd></div>
+      {% if pet.color %}<div><dt>Color</dt><dd>{{ pet.color }}</dd></div>{% endif %}
+      {% if pet.gender %}<div><dt>Gender</dt><dd>{{ pet.gender }}</dd></div>{% endif %}
+    </dl>
+    {% if pet.notes %}
+      <p class="notes">{{ pet.notes }}</p>
+    {% endif %}
+    <div class="owner-box">
+      <h2>Owner contact</h2>
+      <p><strong>{{ owner.full_name }}</strong></p>
+      <p><a href="tel:{{ owner.phone }}">{{ owner.phone }}</a></p>
+      {% if owner.address %}<p>{{ owner.address }}</p>{% endif %}
+    </div>
+  </article>
+</section>
+{% endblock %}

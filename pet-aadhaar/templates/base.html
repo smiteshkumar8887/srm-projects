@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{{ app_name }}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="bg-wash" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">🐾</span>
+      <span class="brand-text">{{ app_name }}</span>
+    </a>
+    <nav class="nav">
+      {% if user %}
+        <a href="/dashboard">My pets</a>
+        <a class="btn btn-soft" href="/pets/new">Add pet</a>
+        <form class="inline-form" method="post" action="/logout">
+          <button class="btn btn-ghost" type="submit">Log out</button>
+        </form>
+      {% else %}
+        <a href="/login">Log in</a>
+        <a class="btn btn-primary" href="/register">Get started</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="{% block main_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>{{ app_name }} — digital collar ID for every good boy & girl.</p>
+  </footer>
+  <script src="/static/js/app.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

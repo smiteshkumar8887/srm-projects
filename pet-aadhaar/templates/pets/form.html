@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}{% if mode == 'edit' %}Edit {{ pet.name }}{% else %}Add a pet{% endif %} — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="form-shell">
+  <div class="form-card">
+    <h1>{% if mode == 'edit' %}Edit {{ pet.name }}{% else %}Add a new pet{% endif %}</h1>
+    <p class="muted">Pet names must be unique across PawAadhaar.</p>
+
+    {% if error %}
+      <div class="alert alert-error" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <form
+      method="post"
+      action="{% if mode == 'edit' %}/pets/{{ pet.id }}/edit{% else %}/pets/new{% endif %}"
+      enctype="multipart/form-data"
+      class="stack-form two-col"
+    >
+      <label>
+        Pet name *
+        <input type="text" name="name" required maxlength="120" value="{{ pet.name if pet else '' }}" />
+      </label>
+      <label>
+        Breed *
+        <input type="text" name="breed" required maxlength="120" value="{{ pet.breed if pet else '' }}" />
+      </label>
+      <label>
+        Species
+        <select name="species">
+          {% set species = pet.species if pet else 'Dog' %}
+          <option value="Dog" {% if species == 'Dog' %}selected{% endif %}>Dog</option>
+          <option value="Cat" {% if species == 'Cat' %}selected{% endif %}>Cat</option>
+          <option value="Bird" {% if species == 'Bird' %}selected{% endif %}>Bird</option>
+          <option value="Other" {% if species == 'Other' %}selected{% endif %}>Other</option>
+        </select>
+      </label>
+      <label>
+        Gender
+        <select name="gender">
+          {% set gender = pet.gender if pet else '' %}
+          <option value="" {% if not gender %}selected{% endif %}>Prefer not to say</option>
+          <option value="Male" {% if gender == 'Male' %}selected{% endif %}>Male</option>
+          <option value="Female" {% if gender == 'Female' %}selected{% endif %}>Female</option>
+        </select>
+      </label>
+      <label>
+        Age (years)
+        <input type="number" name="age_years" min="0" max="40" value="{{ pet.age_years if pet else 0 }}" />
+      </label>
+      <label>
+        Age (months)
+        <input type="number" name="age_months" min="0" max="11" value="{{ pet.age_months if pet else 0 }}" />
+      </label>
+      <label>
+        Color / markings
+        <input type="text" name="color" value="{{ pet.color if pet and pet.color else '' }}" />
+      </label>
+      <label>
+        Vaccination certificate
+        <input type="file" name="vaccination_certificate" accept=".pdf,.png,.jpg,.jpeg,.webp" />
+        {% if pet and pet.vaccination_filename %}
+          <span class="field-hint">Current: {{ pet.vaccination_filename }}</span>
+        {% endif %}
+      </label>
+      <label class="span-2">
+        Notes
+        <textarea name="notes" rows="3" placeholder="Allergies, microchip, temperament…">{{ pet.notes if pet and pet.notes else '' }}</textarea>
+      </label>
+
+      <div class="form-actions span-2">
+        <a class="btn btn-ghost" href="/dashboard">Cancel</a>
+        <button class="btn btn-primary" type="submit">
+          {% if mode == 'edit' %}Save changes{% else %}Create pet ID{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

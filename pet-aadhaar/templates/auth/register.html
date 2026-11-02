@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Create account — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="auth-shell">
+  <div class="auth-card wide">
+    <h1>Join {{ app_name }}</h1>
+    <p class="muted">Your details help someone reunite you with your pet.</p>
+    {% if error %}
+      <div class="alert alert-error" role="alert">{{ error }}</div>
+    {% endif %}
+    <form method="post" action="/register" class="stack-form two-col">
+      <label>
+        Full name
+        <input type="text" name="full_name" required value="{{ form.full_name if form else '' }}" />
+      </label>
+      <label>
+        Phone
+        <input type="tel" name="phone" required value="{{ form.phone if form else '' }}" />
+      </label>
+      <label class="span-2">
+        Email
+        <input type="email" name="email" required value="{{ form.email if form else '' }}" />
+      </label>
+      <label class="span-2">
+        Address
+        <textarea name="address" rows="2">{{ form.address if form else '' }}</textarea>
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required minlength="6" />
+      </label>
+      <label>
+        Confirm password
+        <input type="password" name="confirm_password" required minlength="6" />
+      </label>
+      <button class="btn btn-primary btn-block span-2" type="submit">Create account</button>
+    </form>
+    <p class="switch-auth">Already registered? <a href="/login">Log in</a></p>
+  </div>
+</section>
+{% endblock %}

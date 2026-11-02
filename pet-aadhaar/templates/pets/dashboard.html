@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}My pets — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="dash">
+  <div class="dash-head">
+    <div>
+      <p class="eyebrow">Hi, {{ user.full_name.split()[0] }}</p>
+      <h1>Your pet pack</h1>
+      <p class="muted">Add pets, edit details, and print QR collar tags anytime.</p>
+    </div>
+    <a class="btn btn-primary" href="/pets/new">+ Add a pet</a>
+  </div>
+
+  {% if success == 'created' %}
+    <div class="alert alert-success">Pet added — your QR collar tag is ready to print.</div>
+  {% elif success == 'updated' %}
+    <div class="alert alert-success">Pet details updated.</div>
+  {% endif %}
+
+  {% if pets %}
+    <ul class="pet-list">
+      {% for pet in pets %}
+        <li class="pet-row">
+          <div class="pet-avatar" data-species="{{ pet.species }}">
+            {% if pet.species|lower == 'cat' %}🐱{% elif pet.species|lower == 'bird' %}🐦{% else %}🐶{% endif %}
+          </div>
+          <div class="pet-meta">
+            <h2>{{ pet.name }}</h2>
+            <p>{{ pet.breed }} · {{ pet.species }} · {{ pet.age_years }}y {{ pet.age_months }}m</p>
+            <p class="aadhaar">ID {{ pet.aadhaar_id }}</p>
+          </div>
+          <div class="pet-actions">
+            <a class="btn btn-soft" href="/pets/{{ pet.id }}/edit">Edit</a>
+            <a class="btn btn-primary" href="/pets/{{ pet.id }}/tag">Print tag</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty-pack">
+      <div class="empty-art" aria-hidden="true">🦴</div>
+      <h2>No pets yet</h2>
+      <p>Add your first pet to generate a PawAadhaar QR collar tag.</p>
+      <a class="btn btn-primary" href="/pets/new">Add your first pet</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
